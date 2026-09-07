@@ -1,0 +1,156 @@
+body {
+  font-family: 'Inter', Arial, sans-serif;
+  background: linear-gradient(135deg, #5ab8ff, #ff6fbe);
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  letter-spacing: 0.3px;
+}
+
+/* Фіксована шапка */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.65);
+  padding: 18px 20px;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+}
+
+h1 {
+  margin: 0;
+  font-size: 2.1em;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.45);
+}
+
+/* Пошук */
+#searchBox {
+  margin-top: 12px;
+  padding: 10px 14px;
+  width: 80%;
+  max-width: 420px;
+  border-radius: 8px;
+  border: 2px solid rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  font-size: 15px;
+  backdrop-filter: blur(4px);
+}
+
+#searchBox::placeholder {
+  color: #e8d9e8;
+}
+
+/* Глобальна статистика */
+#globalStats {
+  margin-top: 12px;
+  padding: 12px;
+  background: rgba(255,255,255,0.18);
+  border-radius: 10px;
+  text-align: center;
+  font-size: 17px;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
+/* Плеер */
+#playerBar {
+  margin-top: 15px;
+  padding: 15px;
+  background: rgba(0,0,0,0.45);
+  border-radius: 12px;
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.35);
+}
+
+audio {
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* Кнопки */
+.controls button {
+  margin: 6px;
+  padding: 10px 16px;
+  border: 2px solid rgba(255,255,255,0.35);
+  border-radius: 8px;
+  cursor: pointer;
+  background: #4cc9f0;
+  color: #000;
+  font-weight: 600;
+  font-size: 15px;
+  transition: 0.25s;
+}
+
+.controls button:hover {
+  background: #3bb8e0;
+  transform: translateY(-2px);
+}
+
+/* Основний контент */
+main {
+  margin-top: 300px;
+  padding: 25px;
+}
+
+/* Список треків */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background: rgba(255,255,255,0.18);
+  margin: 8px 0;
+  padding: 12px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: 500;
+  transition: 0.25s;
+  border: 1px solid rgba(255,255,255,0.25);
+}
+
+li:hover {
+  background: rgba(255,255,255,0.28);
+  transform: translateX(4px);
+}
+
+/* Донат */
+#donate {
+  text-align: center;
+  margin-top: 45px;
+  padding: 25px;
+  background: rgba(0,0,0,0.35);
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.35);
+}
+
+#donate img {
+  border-radius: 12px;
+  margin-top: 15px;
+}
+
+/* Футер */
+footer {
+  text-align: center;
+  padding: 25px;
+  background: rgba(0,0,0,0.55);
+  margin-top: 40px;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+}
+
+/* Now Playing */
+#nowPlaying {
+  margin-top: 10px;
+  font-size: 15px;
+  color: #ffe6f7;
+  font-style: italic;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.45);
+}
