@@ -2,7 +2,7 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
-  <title>Настя Луньова — Музичне Творчество</title>
+  <title>Настя Луньова — Музична творчість</title>
 
   <style>
     body {
@@ -21,6 +21,7 @@
       padding: 15px;
       z-index: 1000;
       backdrop-filter: blur(8px);
+      box-sizing: border-box;
     }
 
     h1 { margin: 0; font-size: 1.8em; }
@@ -32,6 +33,7 @@
       max-width: 400px;
       border-radius: 6px;
       border: none;
+      outline: none;
     }
 
     #globalStats {
@@ -58,8 +60,10 @@
       font-weight: bold;
     }
 
+    .controls button:hover { background: #3ab2d8; }
+
     main {
-      margin-top: 260px;
+      margin-top: 290px;
       padding: 20px;
     }
 
@@ -67,13 +71,13 @@
 
     li {
       background: rgba(255,255,255,0.15);
-      margin: 5px 0;
-      padding: 10px;
+      margin: 8px 0;
+      padding: 10px 15px;
       border-radius: 6px;
-      cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      transition: background 0.2s;
     }
 
     li:hover { background: rgba(255,255,255,0.25); }
@@ -81,11 +85,14 @@
     .dl-btn {
       background: #ff7ecb;
       color: white;
-      padding: 5px 10px;
+      padding: 6px 12px;
       border-radius: 4px;
       text-decoration: none;
       font-size: 12px;
+      font-weight: bold;
     }
+
+    .dl-btn:hover { background: #e06bb2; }
 
     #donate {
       text-align: center;
@@ -111,15 +118,15 @@
 <body>
 
 <header>
-  <h1>Музыкальное творчество — Насти Луневой</h1>
+  <h1>Музична творчість — Насті Луньової</h1>
 
   <input type="text" id="searchBox" placeholder="Пошук пісні...">
 
-  <div id="globalStats">Загрузка статистики...</div>
+  <div id="globalStats">Глобальна статистика — Прослуховувань: 0 · Скачувань: 0</div>
 
   <div id="playerBar">
     <audio id="audio" controls></audio>
-    <div id="nowPlaying">Сейчас играет: —</div>
+    <div id="nowPlaying">Зараз грає: —</div>
 
     <div class="controls">
       <button onclick="prevTrack()">⏮ Prev</button>
@@ -134,28 +141,31 @@
   <ul id="trackList"></ul>
 
   <section id="donate">
-    <h2 style="color:#ff99cc;">Поддержать творчество Насти Луневой</h2>
-    <p style="color:#4cc9f0;">Откройте камеру на телефоне и наведите на QR‑код</p>
+    <h2 style="color:#ff99cc;">Підтримати творчість Насті Луньової</h2>
+    <p style="color:#4cc9f0;">Відкрийте камеру на телефоні та наведіть на QR‑код</p>
     <img src="privat24-qr.jpg" width="240" height="240" alt="QR-код для доната через Privat24">
   </section>
 </main>
+
 <footer>
-  <p>© Настя Лунева</p>
+  <p>© Настя Луньова</p>
 </footer>
 
+<!-- Підключення Supabase JS -->
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 
 <script>
+  // Налаштування підключення до Supabase
   const SUPABASE_URL = "https://rxvpsmhnzckifhhmjugz.supabase.co";
   const SUPABASE_KEY = "sb_publishable_LS0iEvSogEA8tr_C_Bvlsg_MWfyiGuh"; 
 
   const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+  // Список всіх пісень
   const songs = [
     { title: "Если бы не ты", file: "Если бы не ты.mp3" },
     { title: "Твои очи обрати", file: "Твои очи обрати.mp3" },
-    { title: "Как предсказано было", file: "Как предсказано было.mp3" },
-    { title: "Благодарю за братьев и сестер", file: "Благодарю за братьев и сестер.mp3" },
+    { title: "Как предсказано было", file: "Как предсказано было.mp3" },{ title: "Благодарю за братьев и сестер", file: "Благодарю за братьев и сестер.mp3" },
     { title: "Все наши недопониманья", file: "Все наши недопониманья.mp3" },
     { title: "Вы мне нравитесь", file: "Вы мне нравитесь.mp3" },
     { title: "Два апельсина", file: "Два апельсина.mp3" },
@@ -208,8 +218,7 @@
     { title: "Есть слово что за ним стоит", file: "Есть слово что за ним стоит.mp3" },
     { title: "Забот и дел так много", file: "Забот и дел так много.mp3" },
     { title: "Закат", file: "Закат.mp3" },
-    { title: "Иегова я так ослабел", file: "Иегова я так ослабел.mp3" },
-    { title: "Как волны нескончаемые", file: "Как волны нескончаемые.mp3" },
+    { title: "Иегова я так ослабел", file: "Иегова я так ослабел.mp3" },{ title: "Как волны нескончаемые", file: "Как волны нескончаемые.mp3" },
     { title: "Как зима сегодня кружит", file: "Как зима сегодня кружит.mp3" },
     { title: "Как сегодня ясно в небе над рекой", file: "Как сегодня ясно в небе над рекой.mp3" },
     { title: "Когда земля покроется цветами", file: "Когда земля покроется цветами.mp3" },
@@ -270,7 +279,7 @@
       }
 
       document.getElementById("globalStats").innerHTML =
-        "Глобальная статистика — Прослушиваний: " + plays + " · Скачиваний: " + downloads;
+        "Глобальна статистика — Прослуховувань: " + plays + " · Скачувань: " + downloads;
 
     } catch (err) {
       console.error("Помилка статистики:", err);
@@ -284,10 +293,10 @@
     const songTitle = songs[index].title;
     const file = "songs/" + songs[index].file;
 
-    nowPlaying.innerText = "Сейчас играет: " + songTitle;
+    nowPlaying.innerText = "Зараз грає: " + songTitle;
     audio.src = file;
 
-    audio.play().catch(e => console.log("Автозапуск заблокировано браузером"));
+    audio.play().catch(e => console.log("Автозапуск заблоковано браузером"));
 
     try {
       await db.rpc("increment_play", { song_title: songTitle });
@@ -300,9 +309,7 @@
   function prevTrack() {
     currentIndex = (currentIndex - 1 + songs.length) % songs.length;
     playTrack(currentIndex);
-  }
-
-  function nextTrack() {
+  }function nextTrack() {
     currentIndex = (currentIndex + 1) % songs.length;
     playTrack(currentIndex);
   }
@@ -315,20 +322,20 @@
   function repeatTrack() {
     repeat = !repeat;
     audio.loop = repeat;
-    alert(repeat ? "Повтор включено" : "Повтор выключено");
+    alert(repeat ? "Повтор увімкнено" : "Повтор вимкнено");
   }
 
   audio.addEventListener('ended', () => {
     if (!repeat) nextTrack();
   });
 
-  // Скачивание статистика
+  // Статистика скачування
   async function trackDownload(index, e) {
     try {
       await db.rpc("increment_download", { song_title: songs[index].title });
       loadGlobalStats();
     } catch (err) {
-      console.error("Помилка запису скачивания:", err);
+      console.error("Помилка запису скачування:", err);
     }
   }
 
@@ -341,7 +348,7 @@
         const li = document.createElement("li");
 
         const spanTitle = document.createElement("span");
-        spanTitle.textContent = song.title;
+        spanTitle.textContent = "🎵 " + song.title;
         spanTitle.style.flexGrow = "1";
         spanTitle.style.cursor = "pointer";
         spanTitle.onclick = () => playTrack(index);
@@ -370,4 +377,19 @@
 </script>
 
 </body>
-</html>
+</html>create table songs_stats (
+  id serial primary key,
+  title text unique not null,
+  plays_count integer default 0,
+  downloads_count integer default 0
+);create or replace function increment_download(song_title text)
+returns void
+language plpgsql
+as $$
+begin
+  insert into songs_stats (title, plays_count, downloads_count)
+  values (song_title, 0, 1)
+  on conflict (title)
+  do update set downloads_count = songs_stats.downloads_count + 1;
+end;
+$$;
