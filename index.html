@@ -61,7 +61,6 @@
     }
 
     .controls button:hover { background: #3ab2d8; }
-
     main {
       margin-top: 290px;
       padding: 20px;
@@ -269,7 +268,6 @@
     try {
       const { data, error } = await db.rpc("get_song_stats");
       if (error) return;
-
       let plays = 0, downloads = 0;
       if (data) {
         data.forEach(s => {
