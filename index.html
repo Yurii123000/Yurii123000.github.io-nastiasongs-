@@ -247,6 +247,61 @@
     { title: "Слон", file: "Слон.mp3" }
   ];
 
+  let currentIndex = 0;
+  let repeat = false;
+
+  const audio = document.getElementById('audio');
+  const trackList = document.getElementById('trackList');
+  const searchBox = document.getElementById('searchBox');
+  const nowPlaying = document.getElementById('nowPlaying');
+
+  // Глобальна статистика
+  async function loadGlobalStats() {
+    try {
+      const { data, error } = await db.rpc("get_song_stats");
+      if (error) return;
+
+      let plays = 0, downloads = 0;
+      if (data) {
+        data.forEach(s => {
+          plays += s.plays_count;
+          downloads += s.downloads_count;
+        });
+      }
+
+      document.getElementById("globalStats").innerHTML =
+        "Глобальная статистика — Прослушиваний: " + plays + " · Скачиваний: " + downloads;
+
+    } catch (err) {
+      console.error("Помилка статистики:", err);
+    }
+  }
+
+  // Відтворення треку
+  async function playTrack(index) {
+    currentIndex = index;
+
+    const songTitle = songs[index].title;
+    const file = "songs/" + songs[index].file;
+
+    nowPlaying.innerText = "Сейчас играет: " + songTitle;
+    audio.src = file;
+
+    audio.play().catch(e => console.log("Автозапуск заблокировано браузером"));
+
+    try {
+      await db.rpc("increment_play", { song_title: songTitle });
+      loadGlobalStats();
+    } catch (err) {
+      console.error("Помилка запису прослуховування:", err);
+    }
+  }
+
+  function prevTrack() {
+    currentIndex = (currentIndex - 1 + songs.length) % songs.length;
+    playTrack(currentIndex);
+  }
+
   function nextTrack() {
     currentIndex = (currentIndex + 1) % songs.length;
     playTrack(currentIndex);
@@ -260,20 +315,20 @@
   function repeatTrack() {
     repeat = !repeat;
     audio.loop = repeat;
-    alert(repeat ? "Повтор увімкнено" : "Повтор вимкнено");
+    alert(repeat ? "Повтор включено" : "Повтор выключено");
   }
 
   audio.addEventListener('ended', () => {
     if (!repeat) nextTrack();
   });
 
-  // Статистика скачування
+  // Скачивание статистика
   async function trackDownload(index, e) {
     try {
       await db.rpc("increment_download", { song_title: songs[index].title });
       loadGlobalStats();
     } catch (err) {
-      console.error("Помилка запису скачування:", err);
+      console.error("Помилка запису скачивания:", err);
     }
   }
 
@@ -286,7 +341,7 @@
         const li = document.createElement("li");
 
         const spanTitle = document.createElement("span");
-        spanTitle.textContent = "🎵 " + song.title;
+        spanTitle.textContent = song.title;
         spanTitle.style.flexGrow = "1";
         spanTitle.style.cursor = "pointer";
         spanTitle.onclick = () => playTrack(index);
