@@ -71,9 +71,21 @@
       padding: 10px;
       border-radius: 6px;
       cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     li:hover { background: rgba(255,255,255,0.25); }
+
+    .dl-btn {
+      background: #ff7ecb;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 12px;
+    }
 
     #donate {
       text-align: center;
@@ -135,186 +147,161 @@
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 
 <script>
-const SUPABASE_URL = "https://rxvpsmhnzckifhhmjugz.supabase.co";
-const SUPABASE_KEY = "sb_publishable_LS0iEvSogEA8tr_C_Bvlsg_MWfyiGuh"; 
+  const SUPABASE_URL = "https://rxvpsmhnzckifhhmjugz.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_LS01EvSogEA8tr_C_Bvlsg_MWfy1Guh"; 
 
   const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
   const tracks = [
-   "Если бы не ты.mp3",
-      "Твои очи обрати.mp3",
-      "Как предсказано было.mp3",
-      "Благодарю за братьев и сестер.mp3",
-      "Все наши недопониманья.mp3",
-      "Вы мне нравитесь.mp3",
-      "Два апельсина.mp3",
-      "Детские глаза.mp3",
-      "За тысячу закатов.mp3",
-      "Как птица ночная.mp3",
-      "Как хорошо вальса на берегу.mp3",
-      "Какой ты красивый.mp3",
-      "Люблю смотреть на твой огонь.mp3",
-      "Но вы мне нравитесь.mp3",
-      "Новые зори.mp3",
-      "Проснись любимая.mp3",
-      "Колыбельная.mp3",
-      "Рассвет - улыбка Иеговы.mp3",
-      "Рассвет.mp3",
-      "Скорей бы лето.mp3",
-      "Солнышко весеннее.mp3",
-      "Суок.mp3",
-      "Такое бывает счастье.mp3",
-      "Терроризм.mp3",
-      "Что бы было светлее идти.mp3",
-      "Что еще я буду вытворь.mp3",
-      "Чтоб разрушить все преграды.mp3",
-      "Этот дождь никогда не кончится.mp3",
-      "Я буду там.mp3",
-      "Я буду помнить о тебе.mp3",
-      "Я грешный человек.mp3",
-      "Я так люблю тебя мой Бог.mp3",
-      "А не начать ли мне с себя.mp3",
-      "А небо плотно затянуло.mp3",
-      "Ах эта жизнь наполненная веснами.mp3",
-      "В раздумьях трудных о простом.mp3",
-      "Иегова учи меня жить.mp3",
-      "Как хорошо под тихий дождь молиться.mp3",
-      "Осуждающий взгляд отнимает покой.mp3",
-      "Победа иль вновь пораженье.mp3",
-      "Смотрю удерживая дрожь.mp3",
-      "Уже казалось мне.mp3",
-      "А лето в городе смерти подобно.mp3",
-      "А я уеду.mp3",
-      "Благодарю Тебя.mp3",
-      "Будем любить друг друга.mp3",
-      "Вечер.mp3",
-      "Горе прошло.mp3",
-      "Губы шепчут.mp3",
-      "Давай поговорим о Нем.mp3",
-      "Декорации сменся.mp3",
-      "Довольно жизни без оглядки.mp3",
-      "Друг мой верный.mp3",
-      "Есть слово что за ним стоит.mp3",
-      "Забот и дел так много.mp3",
-      "Закат.mp3",
-      "Иегова я так ослабел.mp3",
-      "Как волны нескончаемые.mp3",
-      "Как зима сегодня кружит.mp3",
-      "Как сегодня ясно в небе над рекой.mp3",
-      "Когда земля покроется цветами.mp3",
-      "Когда мои иссякнут силы.mp3",
-      "Когда так мало тишины.mp3",
-      "Когда у меня будет все что хочу.mp3",
-      "Мина.mp3",
-      "Мир полный любви.mp3",
-      "Мне снился сон.mp3",
-      "Мы шли с тобой по берегу реки.mp3",
-      "На лепестках роса как слезы.mp3",
-      "На лицах печать неверья.mp3",
-      "Нет это не случайно.mp3",
-      "Осень.mp3",
-      "Очень просто и ласково.mp3",
-      "Печально сомкнуты ресницы.mp3",
-      "Помнишь день когда.mp3",
-      "Посмотри на облака.mp3",
-      "Пробьюсь ростком.mp3",
-      "Прощай мой берег.mp3",
-      "Радость Иеговы.mp3",
-      "Так хочется достичь всего.mp3",
-      "Так хочется покоя и любви.mp3",
-      "У истока истинной любви.mp3",
-      "Я так скучаю по тебе.mp3",
-      "До встречи.mp3",
-      "Зимой весь мир.mp3",
-      "Как же вышло.mp3",
-      "Когда под снегом.mp3",
-      "Когда придет весна.mp3",
-      "Лето мое.mp3",
-      "Лето.mp3",
-      "Небо вода и земля.mp3",
-      "Подруга осени.mp3",
-      "Слон.mp3"
+    "Если бы не ты.mp3",
+    "Твои очи обрати.mp3",
+    "Как предсказано было.mp3",
+    "Благодарю за братьев и сестер.mp3",
+    "Все наши недопониманья.mp3",
+    "Вы мне нравитесь.mp3",
+    "Два апельсина.mp3",
+    "Детские глаза.mp3",
+    "За тысячу закатов.mp3",
+    "Как птица ночная.mp3",
+    "Как хорошо вальса на берегу.mp3",
+    "Какой ты красивый.mp3",
+    "Люблю смотреть на твой огонь.mp3",
+    "Но вы мне нравитесь.mp3",
+    "Новые зори.mp3",
+    "Проснись любимая.mp3","Колыбельная.mp3",
+    "Рассвет - улыбка Иеговы.mp3",
+    "Рассвет.mp3",
+    "Скорей бы лето.mp3",
+    "Солнышко весеннее.mp3",
+    "Суок.mp3",
+    "Такое бывает счастье.mp3",
+    "Терроризм.mp3",
+    "Что бы было светлее идти.mp3",
+    "Что еще я буду вытворь.mp3",
+    "Чтоб разрушить все преграды.mp3",
+    "Этот дождь никогда не кончится.mp3",
+    "Я буду там.mp3",
+    "Я буду помнить о тебе.mp3",
+    "Я грешный человек.mp3",
+    "Я так люблю тебя мой Бог.mp3",
+    "А не начать ли с себя.mp3",
+    "А небо плотно затянуло.mp3",
+    "Ах эта жизнь наполненная веснами.mp3",
+    "В раздумьях трудных о простом.mp3",
+    "Иегова учи меня жить.mp3",
+    "Как хорошо под тихий дождь молиться.mp3",
+    "Осуждающий взгляд отнимает покой.mp3",
+    "Победа иль вновь пораженье.mp3",
+    "Смотрю удерживая дрожь.mp3",
+    "Уже казалось мне.mp3",
+    "А лето в городе смерти подобно.mp3",
+    "А я уеду.mp3",
+    "Благодарю Тебя.mp3",
+    "Будем любить друг друга.mp3",
+    "Вечер.mp3",
+    "Горе прошло.mp3",
+    "Губы шепчут.mp3",
+    "Давай поговорим о Нем.mp3",
+    "Декорации сменся.mp3",
+    "Довольно жизни без оглядки.mp3",
+    "Друг мой верный.mp3",
+    "Есть слово что за ним стоит.mp3",
+    "Забот и дел так много.mp3",
+    "Закат.mp3",
+    "Иегова я так ослабел.mp3",
+    "Как волны нескончаемые.mp3",
+    "Как зима сегодня кружит.mp3",
+    "Как сегодня ясно в небе над рекой.mp3",
+    "Когда земля покроется цветами.mp3",
+    "Когда мои иссякнут силы.mp3",
+    "Когда так мало тишины.mp3",
+    "Когда у меня будет все что хочу.mp3",
+    "Мина.mp3",
+    "Мир полный любви.mp3",
+    "Мне снился сон.mp3",
+    "Мы шли с тобой по берегу реки.mp3",
+    "На лепестках роса как слезы.mp3",
+    "На лицах печать неверья.mp3",
+    "Нет это не случайно.mp3",
+    "Осень.mp3",
+    "Очень просто и ласково.mp3",
+    "Печально сомкнуты ресницы.mp3",
+    "Помнишь день когда.mp3",
+    "Посмотри на облака.mp3",
+    "Пробьюсь ростком.mp3",
+    "Прощай мой берег.mp3",
+    "Радость Иеговы.mp3",
+    "Так хочется достичь всего.mp3",
+    "Так хочется покоя и любви.mp3",
+    "У истока истинной любви.mp3",
+    "Я так скучаю по тебе.mp3",
+    "До встречи.mp3",
+    "Зимой весь мир.mp3",
+    "Как же вышло.mp3",
+    "Когда под снегом.mp3",
+    "Когда придет весна.mp3",
+    "Лето мое.mp3",
+    "Лето.mp3",
+    "Небо вода и земля.mp3",
+    "Подруга осени.mp3",
+    "Слон.mp3"
   ];
 
   let currentIndex = 0;
+  let repeat = false;
+
   const audio = document.getElementById('audio');
   const trackList = document.getElementById('trackList');
   const searchBox = document.getElementById('searchBox');
   const nowPlaying = document.getElementById('nowPlaying');
-  let repeat = false;
-// 1. Функція зарахування прослуховування поточного треку
-async function trackPlay(index) {
-  const songTitle = tracks[index]; // бере назву пісні з вашого масиву tracks
-  try {
-    await db.rpc("increment_play", { song_title: songTitle });
-    if (typeof loadGlobalStats === 'function') {
-      loadGlobalStats(); // оновлює загальну статистику на екрані
-    }
-  } catch (err) {
-    console.error("Помилка запису прослуховування:", err);
-  }
-}
 
-// 2. Функція зарахування скачування
-async function trackDownload(songTitle) {
-  try {
-    await db.rpc("increment_download", { song_title: songTitle });
-    if (typeof loadGlobalStats === 'function') {
-      loadGlobalStats();
-    }
-  } catch (err) {
-    console.error("Помилка запису скачування:", err);
-  }
-}
+  // Функція завантаження глобальної статистики з бази
   async function loadGlobalStats() {
-    const { data, error } = await db.rpc("get_song_stats");
-    if (error) return;
+    try {
+      const { data, error } = await db.rpc("get_song_stats");
+      if (error) return;
 
-    let plays = 0, downloads = 0;
-
-    data.forEach(s => {
-      plays += s.plays_count;
-      downloads += s.downloads_count;
-    });
-
-    document.getElementById("globalStats").innerHTML =
-      `Глобальная статистика — Прослушиваний: <b>${plays}</b> · Скачиваний: <b>${downloads}</b>`;
-  }
-
-  function renderList(filter = "") {
-    trackList.innerHTML = "";
-    tracks.forEach((track, index) => {
-      if (track.toLowerCase().includes(filter.toLowerCase())) {
-        const li = document.createElement("li");
-        li.textContent = track.replace(".mp3", "");
-        li.onclick = () => playTrack(index);
-        trackList.appendChild(li);
+      let plays = 0, downloads = 0;
+      if (data) {
+        data.forEach(s => {
+          plays += s.plays_count;
+          downloads += s.downloads_count;
+        });
       }
-    });
+
+      document.getElementById("globalStats").innerHTML = 
+        Глобальная статистика — Прослушиваний: <b>${plays}</b> · Скачиваний: <b>${downloads}</b>;
+    } catch (err) {
+      console.error("Помилка статистики:", err);
+    }
   }
 
-  renderList();
-  loadGlobalStats();
-
-  searchBox.addEventListener("input", () => {
-    renderList(searchBox.value);
-  });
-
+  // Відтворення треку із зарахуванням у базу
   async function playTrack(index) {
     currentIndex = index;
-    const file = "songs/" + tracks[index];
+    const songTitle = tracks[index];
+    const file = "songs/" + songTitle;
 
+    nowPlaying.innerText = "Сейчас играет: " + songTitle.replace(".mp3", "");
     audio.src = file;
-    audio.play();
+    audio.play().catch(e => console.log("Автозапуск заблоковано браузером"));
 
-    nowPlaying.innerText = "Сейчас играет: " + tracks[index].replace(".mp3", "");
-
-    await db.rpc("increment_play", { song_id: index + 1 });
-    loadGlobalStats();
-  }
-
-  async function downloadTrack(index) {
-    await db.rpc("increment_download", { song_id: index + 1 });
-    loadGlobalStats();
+    try {
+      await db.rpc("increment_play", { song_title: songTitle });
+      loadGlobalStats();
+    } catch (err) {
+      console.error("Помилка запису прослуховування:", err);
+    }
+  }// Зарахування скачування у базу
+  async function trackDownload(index, event) {
+    event.stopPropagation(); // щоб клік не запускав пісню одразу
+    const songTitle = tracks[index];
+    try {
+      await db.rpc("increment_download", { song_title: songTitle });
+      loadGlobalStats();
+    } catch (err) {
+      console.error("Помилка запису скачування:", err);
+    }
   }
 
   function prevTrack() {
@@ -334,11 +321,50 @@ async function trackDownload(songTitle) {
 
   function repeatTrack() {
     repeat = !repeat;
-    alert("Repeat: " + (repeat ? "ON" : "OFF"));
+    audio.loop = repeat;
+    alert(repeat ? "Повтор включено" : "Повтор вимкнено");
   }
 
-  audio.addEventListener("ended", () => {
-    repeat ? playTrack(currentIndex) : nextTrack();
+  // Автоматичне перемикання на наступний трек після закінчення
+  audio.addEventListener('ended', () => {
+    if (!repeat) {
+      nextTrack();
+    }
+  });
+
+  // Рендеринг списку пісень на екрані
+  function renderList(filter = "") {
+    trackList.innerHTML = "";
+    tracks.forEach((track, index) => {
+      if (track.toLowerCase().includes(filter.toLowerCase())) {
+        const li = document.createElement("li");
+        
+        const spanTitle = document.createElement("span");
+        spanTitle.textContent = track.replace(".mp3", "");
+        spanTitle.style.flexGrow = "1";
+        spanTitle.style.cursor = "pointer";
+        spanTitle.onclick = () => playTrack(index);
+
+        const dlBtn = document.createElement("a");
+        dlBtn.textContent = "Скачати";
+        dlBtn.className = "dl-btn";
+        dlBtn.href = "songs/" + track;
+        dlBtn.download = track;
+        dlBtn.onclick = (e) => trackDownload(index, e);
+
+        li.appendChild(spanTitle);
+        li.appendChild(dlBtn);
+        trackList.appendChild(li);
+      }
+    });
+  }
+
+  // Ініціалізація при завантаженні
+  renderList();
+  loadGlobalStats();
+
+  searchBox.addEventListener("input", () => {
+    renderList(searchBox.value);
   });
 </script>
 
