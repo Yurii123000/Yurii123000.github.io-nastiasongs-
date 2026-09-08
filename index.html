@@ -241,35 +241,64 @@ const SUPABASE_KEY = "sb_publishable_LS0iEvSogEA8tr_C_Bvlsg_MWfyiGuh";
   const searchBox = document.getElementById('searchBox');
   const nowPlaying = document.getElementById('nowPlaying');
   let repeat = false;
+// 1. Функція зарахування прослуховування поточного треку
+async function trackPlay(index) {
+  const songTitle = tracks[index]; // бере назву пісні з вашого масиву tracks
+  try {
+    await db.rpc("increment_play", { song_title: songTitle });
+    if (typeof loadGlobalStats === 'function') {
+      loadGlobalStats(); // оновлює загальну статистику на екрані
+    }
+  } catch (err) {
+    console.error("Помилка запису прослуховування:", err);
+  }
+}
 
-  async function loadGlobalStats() {
+// Функція зарахування прослуховування
+async function playTrack(index) {
+  nowPlaying.innerText = "Сейчас играет: " + tracks[index];
+  try {
+    await db.rpc("increment_play", { song_id: index + 1 });
+    loadGlobalStats();
+  } catch (err) {
+    console.error("Помилка прослуховування:", err);
+  }
+}
+
+// Функція зарахування скачування
+async function downloadTrack(index) {
+  try {
+    await db.rpc("increment_download", { song_id: index + 1 });
+    loadGlobalStats();
+  } catch (err) {
+    console.error("Помилка скачування:", err);
+  }
+}
+
+// Загальна статистика
+async function loadGlobalStats() {
+  try {
     const { data, error } = await db.rpc("get_song_stats");
     if (error) return;
 
     let plays = 0, downloads = 0;
-
     data.forEach(s => {
       plays += s.plays_count;
       downloads += s.downloads_count;
     });
 
-    document.getElementById("globalStats").innerHTML =
-      `Глобальная статистика — Прослушиваний: <b>${plays}</b> · Скачиваний: <b>${downloads}</b>`;
+    const statsEl = document.getElementById("globalStats");
+    if (statsEl) {
+      statsEl.innerHTML = Глобальная статистика — Прослушиваний: <b>${plays}</b> — Скачиваний: <b>${downloads}</b>;
+    }
+  } catch (err) {
+    console.error("Помилка статистики:", err);
   }
+}
 
-  function renderList(filter = "") {
-    trackList.innerHTML = "";
-    tracks.forEach((track, index) => {
-      if (track.toLowerCase().includes(filter.toLowerCase())) {
-        const li = document.createElement("li");
-        li.textContent = track.replace(".mp3", "");
-        li.onclick = () => playTrack(index);
-        trackList.appendChild(li);
-      }
-    });
-  }
-
-  renderList();
+function renderList(filter = "") {
+  trackList.innerHTML = "";
+  // (тут продовження вашого старого коду renderList)
   loadGlobalStats();
 
   searchBox.addEventListener("input", () => {
