@@ -256,15 +256,15 @@
 
   async function loadGlobalStats() {
     try {
-      const { data, error } = await db.rpc("get_song_stats", {});
+      const { data, error } = await db.rpc("get_song_stats");
       if (error) return;
 
       let plays = 0, downloads = 0;
 
       if (data) {
         data.forEach(s => {
-          plays += s.plays;
-          downloads += s.downloads;
+          plays += s.plays_count;
+          downloads += s.downloads_count;
         });
       }
 
