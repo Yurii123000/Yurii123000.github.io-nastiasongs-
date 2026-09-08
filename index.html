@@ -294,7 +294,7 @@ async function playTrack(index) {
   function prevTrack() {
     currentIndex = (currentIndex - 1 + tracks.length) % tracks.length;
     playTrack(currentIndex);
-  }
+  } 
 
   function nextTrack() {
     currentIndex = (currentIndex + 1) % tracks.length;
