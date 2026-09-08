@@ -275,33 +275,22 @@
   }
 
   // Відтворення треку із зарахуванням у базу
-  async function playTrack(index) {
+async function playTrack(index) {
     currentIndex = index;
     const songTitle = tracks[index];
     const file = "songs/" + songTitle;
 
     nowPlaying.innerText = "Сейчас играет: " + songTitle.replace(".mp3", "");
     audio.src = file;
-    audio.play().catch(e => console.log("Автозапуск заблоковано браузером"));
+    audio.play().catch(e => console.log("Автозапуск заблокировано браузером"));
 
     try {
-      await db.rpc("increment_play", { song_title: songTitle });
-      loadGlobalStats();
+        await db.rpc("increment_play", { song_title: songTitle });
+        loadGlobalStats();
     } catch (err) {
-      console.error("Помилка запису прослуховування:", err);
+        console.error("Помилка запису прослуховування:", err);
     }
-  }// Зарахування скачування у базу
-  async function trackDownload(index, event) {
-    event.stopPropagation(); // щоб клік не запускав пісню одразу
-    const songTitle = tracks[index];
-    try {
-      await db.rpc("increment_download", { song_title: songTitle });
-      loadGlobalStats();
-    } catch (err) {
-      console.error("Помилка запису скачування:", err);
-    }
-  }
-
+}
   function prevTrack() {
     currentIndex = (currentIndex - 1 + tracks.length) % tracks.length;
     playTrack(currentIndex);
