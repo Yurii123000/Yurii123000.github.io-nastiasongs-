@@ -269,7 +269,7 @@
         });
       }
 
-     document.getElementById("globalStats").innerHTML = Глобальная статистика — Прослушиваний: <b>${plays}</b> · Скачиваний: <b>${downloads}</b>;
+    document.getElementById("globalStats").innerHTML = "Глобальная статистика — Прослушиваний: " + plays + " · Скачиваний: " + downloads;
     } catch (err) {
       console.error("Помилка статистики:", err);
     }
