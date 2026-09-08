@@ -290,7 +290,7 @@ async function playTrack(index) {
     } catch (err) {
         console.error("Помилка запису прослуховування:", err);
     }
-}
+} 
   function prevTrack() {
     currentIndex = (currentIndex - 1 + tracks.length) % tracks.length;
     playTrack(currentIndex);
